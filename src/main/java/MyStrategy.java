@@ -70,6 +70,15 @@ public final class MyStrategy implements Strategy {
             return;
         }
 
+        if (Arrays.stream(world.getWizards()).filter(x -> !x.isMe()).filter(x -> self.getDistanceTo(x) < x.getRadius() + self.getRadius() + 3).count() > 0) {
+            goTo(getPreviousWaypoint());
+            return;
+        }
+        if (Arrays.stream(world.getMinions()).filter(x -> self.getDistanceTo(x) < x.getRadius() + self.getRadius() + 3).count() > 0) {
+            goTo(getPreviousWaypoint());
+            return;
+        }
+
         for (Wizard enemyWizard : getNearestWizards(self.getFaction() == ACADEMY ? RENEGADES : ACADEMY)) {
             boolean inDanger = true;
             for (Wizard yoursWizard : getNearestWizards(self.getFaction())) {
