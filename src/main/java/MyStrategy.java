@@ -60,7 +60,10 @@ public final class MyStrategy implements Strategy {
             return;
         }
 
-        if (Arrays.stream(world.getTrees()).filter(x -> self.getDistanceTo(x) < 5).count())
+        if (Arrays.stream(world.getTrees()).filter(x -> self.getDistanceTo(x) < 3).count() > 0){
+            goTo(getPreviousWaypoint());
+            return;
+        }
 
         for (Wizard enemyWizard : getNearestWizards(self.getFaction() == ACADEMY ? RENEGADES : ACADEMY)) {
             boolean inDanger = true;
