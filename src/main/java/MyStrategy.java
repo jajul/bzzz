@@ -60,7 +60,12 @@ public final class MyStrategy implements Strategy {
             return;
         }
 
-        if (Arrays.stream(world.getTrees()).filter(x -> self.getDistanceTo(x) < 3).count() > 0){
+        if (Arrays.stream(world.getTrees()).filter(x -> self.getDistanceTo(x) < x.getRadius() + self.getRadius() + 3).count() > 0) {
+            goTo(getPreviousWaypoint());
+            return;
+        }
+
+        if (Arrays.stream(world.getBuildings()).filter(x -> self.getDistanceTo(x) < x.getRadius() + self.getRadius() + 3).count() > 0) {
             goTo(getPreviousWaypoint());
             return;
         }
@@ -73,7 +78,7 @@ public final class MyStrategy implements Strategy {
                 }
             }
 
-            if (inDanger && getNearestMinions(self.getFaction() == ACADEMY ? RENEGADES : ACADEMY).stream().filter(x -> self.getDistanceTo(x) < self.getCastRange()/3).count() == 0) {
+            if (inDanger && getNearestMinions(self.getFaction() == ACADEMY ? RENEGADES : ACADEMY).stream().filter(x -> self.getDistanceTo(x) < self.getCastRange() / 3).count() == 0) {
                 goTo(getPreviousWaypoint());
                 return;
             }
